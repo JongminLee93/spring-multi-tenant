@@ -2,16 +2,19 @@ package com.miraeclimate.demo.context;
 
 import java.io.IOException;
 import java.util.Objects;
+
 import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
+
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
-import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 
 @Component
+@Slf4j
 public class TenantContext implements Filter {
   private static final String LOGGER_TENANT_ID = "tenant_id";
   public static final String HTTP_TENANT_HEADER = "X-Tenant";
@@ -37,14 +40,10 @@ public class TenantContext implements Filter {
   @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
       throws IOException, ServletException {
-    HttpServletRequest req = (HttpServletRequest) request;
-
-    String tenant = req.getHeader(HTTP_TENANT_HEADER);
-
-    if (tenant != null) {
-      TenantContext.setCurrentTenant(tenant);
+    try {
+      chain.doFilter(request, response);
+    } finally {
+      clear();
     }
-
-    chain.doFilter(request, response);
   }
 }
