@@ -1,8 +1,8 @@
+-- CREATE DATABASE click;
 CREATE SCHEMA IF NOT EXISTS tenant_a;
 CREATE SCHEMA IF NOT EXISTS tenant_b;
 CREATE SCHEMA IF NOT EXISTS tenant_c;
 CREATE SCHEMA IF NOT EXISTS public;
-
 
 CREATE TABLE IF NOT EXISTS public.person(
     id integer primary key,

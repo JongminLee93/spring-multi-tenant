@@ -4,7 +4,8 @@ import java.util.Collection;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.jwt.Jwt;
-import com.miraeclimate.demo.context.TenantContext;
+
+import com.miraeclimate.demo.multiTenant.TenantContext;
 
 public class CustomJwtGrantedAuthoritiesConverter
     implements Converter<Jwt, Collection<GrantedAuthority>> {
